@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introduction to JavaScript Unit Testing</title>
+
+		<meta name="description" content="Introduction to JavaScript Unit Testing Feb 2016">
+		<meta name="author" content="Abdel Raoof Ahamed Olakara">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>JavaScript Unit Testing</h1>
+					
+					<p>
+						<small>Presented by <a href="http://abdelraoof.com">Abdel Raoof Olakara</a></small><br/>
+                        <a href="http://abdelraoof.com/unittest-talk">http://abdelraoof.com/unittest-talk</a>
+					</p>
+				</section>
+
+				<section >
+					<h2>Agenda</h2>
+					<ul>
+						<li>Unit Testing</li>
+						<li>Why JavaScript should be unit tested</li>
+						<li>Tools of the trade</li>						
+						<li>Introduction to Jasmine</li>
+                        <li>Introduction to Karma</li>			
+                        <li>Demos</li>                        			
+					</ul>
+				</section>
+                
+                <section>
+                    <h2>Unit Testing </h2>
+                    <ul>
+                        <li>
+                            A unit test is a code written to test a small piece of functionality.
+                        </li>
+                        
+                        <p>Tests ensure: 
+                            <ul>
+                                <li>The code meets expecations and specifications</li>
+                                <li>The code continues to meet expectation over time</li> 
+                        </p>
+                    </ul>
+                </section>
+                
+                
+                <section>
+                    <h2>
+                        Types of software testing
+                    </h2>
+                    <p>
+						<img src="images/test-types.png" style="border: 0px"/>
+					</p>
+                </section>
+				
+                <section>
+                    <h2>
+                        Anotomy of a Unit Test
+                    </h2>
+                    <ul>
+                        <li>Setup</li>
+                        <li>Prepare the appropriate input</li>
+                        <li>Call the method to test</li>
+                        <li>Check the result</li>
+                        <li>Tear down</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Why JavaScript should be tested?</h2>
+                    <p style="text-align:left">
+                       <ul>
+                           <li>JavaScript has become first class citizen in our projects</li>
+                           <li>JavaScript has moved from client side to server side</li>
+                           <li>Prodution code should be tested!</li>                               
+                       </ul>
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Quick review of unit testing</h2>
+                    <ul>
+                        <li>Use unit tests to drive development and design</li>
+                        <li>Write the test first and then the code</li>
+                        <li>Test coverage of your code remains high</li>
+                        <li>The test suite is tipically run frequently</li>                  
+                    </ul>
+                </section>
+                                               
+				<section>
+					<h2>
+						Tools of the trade
+					</h2>
+					<ul>
+						<li>QUnit</li>
+						<li>Jasmine</li>						
+						<li>Mocha</li>
+						<li>Chai</li>
+                        <li>Sinon</li>
+                    </ul>
+                    <ul>
+						<li>Karma</li>
+						<li>Wallaby</li>
+						<li>Testem</li>                        
+						<li>Nightwatch.js</li>
+						<li>Chutzpah</li>
+                        <li>Protractor</li>
+					</ul>
+                    <ul>
+                        <li>Gulp</li>
+                        <li>Grunt</li>
+                        <li>Yeoman</li>
+                        <li>Raw Node.js</li>
+				</section>	
+				
+                <section>
+					<h2>
+						Jasmine						
+					</h2>	
+					<p style="text-align:left">
+                        <ul>
+                            <li>Behavior-driven development framework for testing JavaScript</li>
+                            <li>Its a standalone framework</li>
+                            <li>Does not require DOM</li>
+                            <li>Jasmine tests itself across many browsers (Safari, Chrome, Firefox, PhantomJS, and new Internet Explorer) as well as Node, Ruby & Python </li>
+                        </ul>					
+					</p>
+				</section>
+				
+                <section>
+                    <h2>
+                        Installing Jasmine - Standalone
+                    </h2>
+                <ul>
+                    <li>Download the standalone distribution</li>
+                    <li>Create a Jasmine directory in your project :<pre><code data-trim data-noescape>λ mkdir my-project/jasmine</code></pre> </li>
+                    <li>Move the distribution to the jasmine folder & unzip</li>
+                    <li>Create the main HTML file with the necessary files:
+                        <pre><code>
+<!--CSS -->
+<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-2.0.0/jasmine.css">
+ 
+ <!--JS -->
+<script type="text/javascript" src="jasmine/lib/jasmine-2.0.0/jasmine.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-2.0.0/jasmine-html.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-2.0.0/boot.js"></script>
+
+</pre></code>
+                    </li>
+                        
+                </ul>
+                </section>
+
+                <section>
+                    <h2>
+                        Installing Jasmine - NPM
+                    </h2>
+                    <pre><code data-trim data-noescape>
+λ npm install jasmine-core --save-dev
+                    </code></pre>
+                    <ul>
+                        <li>Install along with any test runner..</li>
+                        <li> You can use jasmine for testing Node,Ruby or Python</li>  
+                    </ul>   
+                </section>
+                
+                <section>
+                    <h2>
+                        Jasmine Specs
+                    </h2>
+                    <p><br/><br/>
+                    <pre><code data-trim data-noescape>
+describe("A suite", function() {
+  it("contains spec with an expectation", function() {
+    expect(true).toBe(true);
+  });
+});
+                    </code></pre>
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>
+                        Expectations
+                    </h2>
+                    <p>Expectations are built with the function expect which takes a value, called the actual. It is chained with a Matcher function, which takes the expected valu. <br/>
+                            Example:
+                            <pre><code data-trim data-noescape>expect(true).toBe(true);</pre></code>
+                     </p>              
+                </section>
+                
+                <section>
+                    <h2>
+                        Matchers
+                    </h2>
+                    <ul> 
+                        <li>Matchers are functions that implements the comparison betweent the actual and the expected value</li>
+                        <li>It is responsible for reporting to Jasmine if the expectation is true or false</li>
+                        <li>You can create your own matchers in Jasmine</li>
+                        <li>
+                            Examples:
+                            <pre><code data-trim data-noescape>
+*.toBe(*)
+*.not.toBe(*)
+*.toEqual(*)
+*.toBeDefined()
+*.toBeUndefined()
+*.toBeNull()
+*.toContain(*)
+*.toBeLessThan(*)
+*.toBeTruthy(*)
+                                </pre></code>
+                            
+                        </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>
+                        Spies
+                    </h2>
+                    <blockquote>A person employed to secretly obtain information on an enemy!!</blockquote>
+                    <ul> 
+                        
+                        <li>With Jasmine you can sky on any function and track calls to it and all arguments</li>
+                        <li>A spy only exists in the describe or it block in which it is defined</li>  
+                        <li>Can be used when you deal with 3rd party libraries in your application</li>                      
+                        <li>
+                            Simple Example (Creation):
+                            <pre><code data-trim data-noescape>
+spyOn(person, 'walk');
+createSpy('run');</pre></code>                            
+                        </li>
+                           
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>
+                        Building the ultimate spy!
+                    </h2>
+                    <p> What if you need to spy on multiple functions or mock a whole object? </p>
+                    <p>Solution:
+                         <pre><code data-trim data-noescape>
+createSpyObj(person, ['walk', 'talk', 'eat', 'run']);
+</pre></code>
+Returns an object that has a property for each string you passed in!                    
+                </section>
+                
+                <section>
+                    <h2>
+                        Matchers for the Spies
+                    </h2>    
+                    <pre><code data-trim data-noescape>
+*.toHaveBeenCalled()
+*.toHaveBeenCalledWith(*)
+*.callThrough()           -> spyOn(shape, 'getShape').and.callThrough()
+*.returnValue()           -> spyOn(shape, "getShape").and.returnValue('Circle');
+*.callFake(function() {})                         
+                    </code></pre>
+                </section>
+                
+                <section>
+                    <h2>
+                        Karma
+                    </h2>
+                    <ul>
+                        <li>Karma is a JavaScript test runner aimed at bringing productive testing environment to developers</li>
+                        <li>It was formaly known as testacular</li>
+                        <li>It runs test on real browers</li>
+                        <li>Can integrate with most of the test frameworks available</li>
+                        <li>Easy to integrate with CI</li>
+                    </ul>
+                </section>
+                
+                 <section>
+                    <h2>
+                        Installing Karma
+                    </h2>
+                    <p>
+                    Install Karma locally in the project's directory.    
+                    <pre><code data-trim data-noescape>
+λ npm install karma --save-dev
+                    </code></pre>
+                    Install plugins:
+                    <pre><code data-trim data-noescape>
+λ npm install karma-jasmine karma-chrome-launcher --save-dev
+                     </code></pre>  
+                     Setup the shortcut! 
+                     <pre><code data-trim data-noescape>
+λ npm install -g karma-cli
+                    </code></pre>      
+                    Note: You will have to load other unit test frameworks if necessary
+                     </p>   
+                                      
+                </section>
+                
+                <section>
+                    <h2>
+                        Karma Configuration
+                    </h2>
+                    <ul>
+                        <li> Initial configuration is created by:
+                            <pre><code data-trim data-noescape>
+λ karma init
+                    </code></pre>  
+                        </li>
+                        <li>
+                            The Karma configuration file can be written in JavaScript or CoffeeScript and is loaded as a regular Node.js module.
+                        </li>
+                        <li> 
+                            Default configuration files the karma CLI looks for:
+                            <ol>
+                                <li>./karma.conf.js</li>
+                                <li>./karma.conf.coffee</li>
+                                <li>./.config/karma.conf.js</li>
+                                <li>./.config/karma.conf.coffee</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>
+                        Working in our environment
+                    </h2>
+                    <ul>
+                    </ul>
+                </section>
+                
+                <section>
+					<h2>
+						Demos						
+					</h2>	
+					<p style="text-align:left">
+                        <ul>
+                            <li>Setting up Jasmine & Karma</li>
+                            <li>Writing a simple test cases</li>
+                            <li>Configuring code coverage</li>
+                        </ul>					
+					</p>
+				</section>
+					
+				<section style="text-align: left;">
+					<h1>THE END</h1>
+					<p>
+						Questions... <br/>						
+					</p>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
